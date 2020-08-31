@@ -6,91 +6,90 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 
-
-
 call plug#begin()
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"--------------------
+" fuzzy finder
+"--------------------
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
 
-if has('macunix')
-    hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=54 cterm=NONE
-endif
-Plug '/projects/notOurs/ijaas/vim'
-"=============Java / Maven =============   
-Plug 'mikelue/vim-maven-plugin'
-"=============Javascript =============   
-autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
-autocmd BufEnter *.tsx set filetype=typescript
-Plug 'pangloss/vim-javascript' "Better javascript support for Vim
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript'
-Plug 'elzr/vim-json'
-"=============== Python =========================== 
-Plug 'davidhalter/jedi-vim'
-"============== XML  ==============================
-Plug 'othree/xml.vim'      
-com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
-autocmd Filetype xml nnoremap = :FormatXML<Cr>
+"--------------------
+" javascript / Typescript
+"--------------------
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'leafgarland/typescript-vim', {'for': ['javascript', 'typescript', 'typescriptreact']}
+  "Plug 'peitalin/vim-jsx-typescript'
+  Plug 'jparise/vim-graphql', {'for': ['javascript', 'typescript', 'typescriptreact']}
+  Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'typescript', 'typescriptreact']}
 
-
-
-
-
-
-
-    Plug 'majutsushi/tagbar'
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'vim-airline/vim-airline' "self explanatory
-Plug 'vim-airline/vim-airline-themes'
-    Plug 'tpope/vim-fugitive'      "git wrapper for vim airline
-    Plug 'tpope/vim-commentary'    "commment blocks of code out
-    Plug 'tpope/vim-surround'      "delete, change, add surrounding
-    Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}	 "file explorer for vim
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>
-Plug 'luochen1990/rainbow'     "Rainbow Parenthesis
-Plug 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
-"Plug 'floobits/floobits-neovim'
-Plug 'kien/ctrlp.vim'          
-Plug 'jceb/vim-orgmode'
-Plug 'chriskempson/base16-vim'
-Plug 'mileszs/ack.vim'
-    Plug 'sheerun/vim-polyglot'                                             " A collection of language packs for Vim
-    Plug 'airblade/vim-gitgutter'                                           " Git diff in the gutter
-    Plug '/usr/local/opt/fzf'
-    Plug 'junegunn/fzf.vim'                                                 " fzf integration for vim/neovim
-Plug 'gmoe/vim-espresso'
+" javascript/typescript generic config
+autocmd Filetype javascript setlocal ts=2 sw=2 softtabstop=2 expandtab
+autocmd Filetype typescript setlocal ts=2 sw=2  softtabstop=2 expandtab
+autocmd Filetype typescriptreact setlocal ts=2 sw=2  softtabstop=2 expandtab
+autocmd BufEnter *.tsx set filetype=typescriptreact
 au BufRead,BufNewFile *.ts set filetype=typescript
-    Plug 'tpope/vim-repeat'                                                 " dot commands for stuff like surround, comment, etc
 
-    Plug 'ryanoasis/vim-devicons'                                           " Glyphs for various plugins
+" To help syntax highlighting not get out of sync
+" There is a performance cost so disable if I don't like it
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+
+"--------------------
+" Git
+"--------------------
+  "Git diff in the gutter
+  Plug 'airblade/vim-gitgutter'
+    
+  "git wrapper for vim airline
+  Plug 'tpope/vim-fugitive'
+    
+"--------------------
+" Formatting
+"--------------------
+  Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+"--------------------
+" Make vim pretty
+"--------------------
+  " file expolorer for vim
+  Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+
+  "Rainbow Parenthesis
+  Plug 'luochen1990/rainbow'
+
+  " Glyphs for various plugins
+  Plug 'ryanoasis/vim-devicons'
+
+  " Airline
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
+  Plug 'dracula/vim',{'as': 'dracula'}
+"--------------------
+" code completion
+"--------------------
+  " For deoplete
+  "Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+  "For async completion
+  "Plug 'Shougo/deoplete.nvim'
+
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
-let g:ackprg = 'ag --nogroup --nocolor --column'
-set completeopt-=preview
-map <C-b> :TagbarToggle<CR>
+source ~/.config/nvim/cfg/nerd-tree-config.vim
+source ~/.config/nvim/cfg/rainbow-config.vim
+source ~/.config/nvim/cfg/airline-config.vim
+source ~/.config/nvim/cfg/prettier-config.vim
+source ~/.config/nvim/cfg/fzf-config.vim
+"source ~/.config/nvim/cfg/vim-jsx-typescript-config.vim
+source ~/.config/nvim/cfg/vim-jsx-pretty-config.vim
+"source ~/.config/nvim/cfg/deoplete-config.vim
+source ~/.config/nvim/cfg/coc-config.vim
+source ~/.config/nvim/cfg/gitgutter-config.vim
 
-
-" #### airline ####
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-"let g:airline_theme='one'
-let g:airline_theme='violet'
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-
-
-" NERDTree
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-
-let g:rainbow_active = 1
-
-" configure netrw
-let g:netrw_banner = 0
-" 2 - new vertical split; 4 - previous window
-let g:netrw_browse_split = 2
-let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
-let g:netrw_altv = 1
+colorscheme dracula
 
