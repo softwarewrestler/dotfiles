@@ -5,13 +5,24 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:ale_disable_lsp = 1
+
 
 call plug#begin()
+"--------------------
+" general
+"--------------------
+    Plug 'preservim/nerdcommenter'
 "--------------------
 " fuzzy finder
 "--------------------
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  "
+"--------------------
+" html
+"--------------------
+  Plug 'mattn/emmet-vim'
 
 "--------------------
 " javascript / Typescript
@@ -33,6 +44,17 @@ au BufRead,BufNewFile *.ts set filetype=typescript
 " There is a performance cost so disable if I don't like it
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+
+"--------------------
+" Clojure
+"--------------------
+  Plug 'Olical/conjure', {'tag': 'v4.11.0', 'for': ['clojure']}
+
+  "Plug 'ncm2/float-preview.nvim'
+  "let g:float_preview#docked = 0
+  "let g:float_preview#max_width = 280
+  ""let g:float_preview#max_height = 240
 
 
 "--------------------
@@ -78,6 +100,11 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+"--------------------
+" linter
+"--------------------
+  Plug 'dense-analysis/ale'
+
 call plug#end()
 
 source ~/.config/nvim/cfg/nerd-tree-config.vim
@@ -90,6 +117,9 @@ source ~/.config/nvim/cfg/vim-jsx-pretty-config.vim
 "source ~/.config/nvim/cfg/deoplete-config.vim
 source ~/.config/nvim/cfg/coc-config.vim
 source ~/.config/nvim/cfg/gitgutter-config.vim
+source ~/.config/nvim/cfg/nerdcommenter-config.vim
+source ~/.config/nvim/cfg/emmet-config.vim
+source ~/.config/nvim/cfg/ale-config.vim
 
 colorscheme dracula
 
