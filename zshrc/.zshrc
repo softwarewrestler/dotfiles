@@ -125,7 +125,7 @@ export MAVEN_OPTS="-Xms64m -Xmx4096m"
 #export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 #export PATH="/usr/local/opt/arm-gcc-bin@8/bin:$PATH"
 
-export EDITOR=/usr/bin/vi
+export EDITOR=nvim
 export GITHUB_TOKEN=ae7dee1a6babee1f5c1a4c718414df6f4ed1659f
 
 if type rg &> /dev/null; then
