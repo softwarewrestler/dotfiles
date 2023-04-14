@@ -1,5 +1,6 @@
 return {
   'mfussenegger/nvim-jdtls',
+  'tpope/vim-fugitive',
   {
     'dracula/vim',
     name = 'dracula',
