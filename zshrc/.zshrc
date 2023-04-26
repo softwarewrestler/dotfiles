@@ -67,16 +67,21 @@ DISABLE_AUTO_TITLE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  zsh-autosuggestions
-  vi-mode
-  zsh-syntax-highlighting
-  macos
-  iterm2
-  taskwarrior
   brew
-  themes
+  colored-man-pages
+  git
+  iterm2
+  jsontools
+  macos
+  sdk
+  spring
+  taskwarrior
   textmate
+  themes
+  vi-mode
+  web-search
+  zsh-autosuggestions
+  zsh-syntax-highlighting
   )
 
 source $ZSH/oh-my-zsh.sh
@@ -126,6 +131,7 @@ export MAVEN_OPTS="-Xms64m -Xmx4096m"
 #export PATH="/usr/local/opt/arm-gcc-bin@8/bin:$PATH"
 
 export EDITOR=nvim
+export GITHUB_USER=gordocanchola
 export GITHUB_TOKEN=ae7dee1a6babee1f5c1a4c718414df6f4ed1659f
 
 if type rg &> /dev/null; then
