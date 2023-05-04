@@ -35,6 +35,7 @@ local on_attach = function(client, bufnr)
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   nnoremap('gD', vim.lsp.buf.declaration, bufopts, "Go to declaration")
   nnoremap('gd', vim.lsp.buf.definition, bufopts, "Go to definition")
+  nnoremap('gr', vim.lsp.buf.references, bufopts, "List references")
   nnoremap('gi', vim.lsp.buf.implementation, bufopts, "Go to implementation")
   nnoremap('K', vim.lsp.buf.hover, bufopts, "Hover text")
   nnoremap('<C-k>', vim.lsp.buf.signature_help, bufopts, "Show signature")
