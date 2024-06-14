@@ -25,6 +25,12 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- window management
+keymap("n", "<leader>sv", "<C-w>v", { noremap = true, silent = true, desc = "[S]plit window [V]ertically" }) -- split window vertically
+keymap("n", "<leader>sh", "<C-w>s", { noremap = true, silent = true, desc = "[S]plit window [H]orizontally" }) -- split window horizontally
+keymap("n", "<leader>se", "<C-w>=", { noremap = true, silent = true, desc = "Make [S]plits [E]qual size" }) -- make split windows equal width & height
+keymap("n", "<leader>sx", "<cmd>close<CR>", { noremap = true, silent = true, desc = "Close current split" }) -- close current split window
+
 -- disable arrow keys
 keymap("n", "<UP>", "<Nop>", opts)
 keymap("n", "<DOWN>", "<Nop>", opts)
@@ -46,7 +52,7 @@ keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- clear hlsearch
-keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
+keymap("n", "<leader>nh", "<cmd>nohlsearch<CR>", { noremap = true, silent = true, desc = "Clear search highlights" })
 
 -- Insert --
 -- Press jk fast to enter
@@ -83,50 +89,12 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 --keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 --keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 
-keymap("n", "<leader>fh", ":Telescope help_tags<CR>", { desc = "[F]ind [H]elp", noremap = true, silent = true })
-keymap("n", "<leader>fk", ":Telescope keymaps<CR>", { desc = "[F]ind [K]eymaps", noremap = true, silent = true })
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "[F]ind [F]iles", noremap = true, silent = true })
-keymap(
-	"n",
-	"<leader>fs",
-	":Telescope builtin<CR>",
-	{ desc = "[F]ind [S]elect Telescope", noremap = true, silent = true }
-)
-keymap(
-	"n",
-	"<leader>fw",
-	":Telescope grep_string<CR>",
-	{ desc = "[F]ind current [W]ord", noremap = true, silent = true }
-)
-keymap("n", "<leader>ft", ":Telescope live_grep<CR>", { desc = "[F]ind by [G]rep", noremap = true, silent = true })
-keymap(
-	"n",
-	"<leader>fd",
-	":Telescope diagnostics<CR>",
-	{ desc = "[F]ind [D]iagnostics", noremap = true, silent = true }
-)
-keymap("n", "<leader>fr", ":Telescope resume<CR>", { desc = "[F]ind [R]esume", noremap = true, silent = true })
-keymap(
-	"n",
-	"<leader>f.",
-	":Telescope oldfiles<CR>",
-	{ desc = '[F]ind Recent Files ("." for repeat)', noremap = true, silent = true }
-)
-keymap(
-	"n",
-	"<leader><leader>",
-	":Telescope buffers<CR>",
-	{ desc = "[ ] Find existing buffers", noremap = true, silent = true }
-)
 
 -- Gitsigns
 keymap("n", "<UP>", ":Gitsigns prev_hunk<CR>", opts)
 keymap("n", "<DOWN>", ":Gitsigns next_hunk<CR>", opts)
 keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", opts)
 
--- Nvim Tree
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
-keymap("n", "<leader>ef", ":NvimTreeFindFile<cr>", opts)
 
 -- diagnostics
 
@@ -145,3 +113,10 @@ vim.keymap.set(
 	vim.diagnostic.setloclist,
 	{ desc = "Open diagnostic [C]ode [D]iagnostic [Q]uickfix list" }
 )
+
+
+-- increment/decrement numbers
+keymap("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
+keymap("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
+
+
