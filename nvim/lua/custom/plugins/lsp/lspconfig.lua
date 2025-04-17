@@ -53,6 +53,9 @@ return {
         opts.desc = "Show line diagnostics"
         keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
+        opts.desc = "Disable Virtual Text"
+        keymap.set("n", "<leader>ld", "<cmd>lua vim.diagnostic.config({ virtual_text = false})<CR>", opts)
+
         opts.desc = "Go to previous diagnostic"
         keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 

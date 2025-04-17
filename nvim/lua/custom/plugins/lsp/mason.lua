@@ -28,17 +28,17 @@ return {
     mason_lspconfig.setup {
       -- list of servers for mason to install
       ensure_installed = {
-        "angularls",
-        "tsserver",
-        "html",
-        "cssls",
+        --"angularls",
+        -- "tsserver",
+        --"html",
+        --"cssls",
         "lua_ls",
-        "graphql",
-        "emmet_ls",
+        --"graphql",
+        --"emmet_ls",
         "arduino_language_server",
         "clangd",
         "clojure_lsp",
-        "dockerls",
+        --"dockerls",
         "jdtls",
         "lemminx",
       },
@@ -46,13 +46,13 @@ return {
 
     mason_tool_installer.setup {
       ensure_installed = {
-        "prettier", -- prettier formatter
+        -- "prettier", -- prettier formatter
         "stylua", -- lua formatter
-        "eslint_d",
+        -- "eslint_d",
         "google-java-format",
         "xmlformatter",
         --linting
-        "eslint_d",
+        -- "eslint_d",
         "checkstyle",
       },
     }
