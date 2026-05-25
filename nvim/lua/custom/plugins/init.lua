@@ -1,6 +1,6 @@
 return {
   "nvim-lua/plenary.nvim",
-  -- "tpope/vim-fugitive",
+  "tpope/vim-fugitive",
   -- "mrjones2014/nvim-ts-rainbow",
   -- "f-person/git-blame.nvim",
   {
@@ -10,4 +10,5 @@ return {
       vim.cmd([[colorscheme dracula]])
     end,
   },
+  { "mfussenegger/nvim-jdtls" },
 }

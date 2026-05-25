@@ -28,31 +28,35 @@ return {
     mason_lspconfig.setup {
       -- list of servers for mason to install
       ensure_installed = {
-        "angularls",
-        "tsserver",
-        "html",
-        "cssls",
-        "lua_ls",
-        "graphql",
-        "emmet_ls",
-        "arduino_language_server",
-        "clangd",
-        "clojure_lsp",
-        "dockerls",
-        "jdtls",
-        "lemminx",
+        -- "angularls",
+        -- "tsserver",
+        -- "html",
+        -- "cssls",
+        -- "lua_ls",
+        -- "graphql",
+        -- "emmet_ls",
+        -- "arduino_language_server",
+        -- "clangd",
+        -- "clojure_lsp",
+        -- "dockerls",
+        -- "jdtls",
+        -- "lemminx",
+      },
+      -- jdtls is managed manually via ftplugin/java.lua (with Lombok agent)
+      automatic_enable = {
+        exclude = { "jdtls" },
       },
     }
 
     mason_tool_installer.setup {
       ensure_installed = {
-        "prettier", -- prettier formatter
-        "stylua", -- lua formatter
-        "eslint_d",
+        -- "prettier", -- prettier formatter
+        -- "stylua", -- lua formatter
+        -- "eslint_d",
         "google-java-format",
         "xmlformatter",
         --linting
-        "eslint_d",
+        -- "eslint_d",
         "checkstyle",
       },
     }
