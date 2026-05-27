@@ -18,6 +18,7 @@ return {
         graphql = { "prettier" },
         lua = { "stylua" },
         java = { "google-java-format" },
+        swift = { "swift-format" },
       },
     }
 

@@ -1,60 +1,112 @@
 return {
-  "williamboman/mason.nvim",
-  dependencies = {
+  {
     "williamboman/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-  },
-
-  config = function()
-    -- import mason
-    local mason = require "mason"
-
-    -- import mason-lspconfig
-    local mason_lspconfig = require "mason-lspconfig"
-
-    local mason_tool_installer = require "mason-tool-installer"
-
-    -- enable mason and configure icons
-    mason.setup {
-      ui = {
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "hrsh7th/cmp-nvim-lsp",
+      {
+        "williamboman/mason.nvim",
+        opts = {
+          ui = {
+            icons = {
+              package_installed = "✓",
+              package_pending = "➜",
+              package_uninstalled = "✗",
+            },
+          },
         },
       },
-    }
-
-    mason_lspconfig.setup {
+    },
+    opts = {
       -- list of servers for mason to install
       ensure_installed = {
-        --"angularls",
-        -- "tsserver",
-        --"html",
-        --"cssls",
+        "ts_ls",
+        "html",
+        "cssls",
         "lua_ls",
-        --"graphql",
-        --"emmet_ls",
-        "arduino_language_server",
-        "clangd",
-        "clojure_lsp",
-        --"dockerls",
+        "graphql",
+        "emmet_ls",
+        "eslint",
         "jdtls",
-        "lemminx",
       },
-    }
+      handlers = {
+        function(server_name)
+          local lspconfig = require("lspconfig")
+          local cmp_nvim_lsp = require("cmp_nvim_lsp")
+          local capabilities = cmp_nvim_lsp.default_capabilities()
+          capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    mason_tool_installer.setup {
-      ensure_installed = {
-        -- "prettier", -- prettier formatter
-        "stylua", -- lua formatter
-        -- "eslint_d",
-        "google-java-format",
-        "xmlformatter",
-        --linting
-        -- "eslint_d",
-        "checkstyle",
+          lspconfig[server_name].setup({
+            capabilities = capabilities,
+          })
+        end,
+        -- Lua LSP with special settings
+        lua_ls = function()
+          local lspconfig = require("lspconfig")
+          local cmp_nvim_lsp = require("cmp_nvim_lsp")
+          local capabilities = cmp_nvim_lsp.default_capabilities()
+          capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+          lspconfig.lua_ls.setup({
+            capabilities = capabilities,
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
+                completion = {
+                  callSnippet = "Replace",
+                },
+                telemetry = {
+                  enable = false,
+                },
+              },
+            },
+          })
+        end,
+        -- GraphQL LSP with extended filetypes
+        graphql = function()
+          local lspconfig = require("lspconfig")
+          local cmp_nvim_lsp = require("cmp_nvim_lsp")
+          local capabilities = cmp_nvim_lsp.default_capabilities()
+          capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+          lspconfig.graphql.setup({
+            capabilities = capabilities,
+            filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
+          })
+        end,
+        -- Emmet LSP with extended filetypes
+        emmet_ls = function()
+          local lspconfig = require("lspconfig")
+          local cmp_nvim_lsp = require("cmp_nvim_lsp")
+          local capabilities = cmp_nvim_lsp.default_capabilities()
+          capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+          lspconfig.emmet_ls.setup({
+            capabilities = capabilities,
+            filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+          })
+        end,
+        -- Java LSP (jdtls) - configured separately in ftplugin/java.lua
+        jdtls = function() end,
       },
-    }
-  end,
+    },
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      ensure_installed = {
+        "prettier", -- prettier formatter
+        "stylua", -- lua formatter
+        "eslint_d",
+        "google-java-format", -- Java formatter
+      },
+    },
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+  },
 }
