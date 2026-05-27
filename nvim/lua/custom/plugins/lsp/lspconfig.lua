@@ -7,12 +7,6 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
-    -- import mason_lspconfig plugin
-    local mason_lspconfig = require("mason-lspconfig")
-
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -73,6 +67,9 @@ return {
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
+    -- Propagate cmp capabilities to all LSP servers (nvim 0.11+ native API)
+    vim.lsp.config('*', { capabilities = capabilities })
+
     -- Change the Diagnostic symbols in the sign column (gutter)
     -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -120,5 +117,12 @@ return {
     --   --   })
     --   -- end,
     -- })
+
+    -- sourcekit-lsp is bundled with Xcode; use nvim 0.11+ native API
+    vim.lsp.config('sourcekit', {
+      cmd = { 'xcrun', 'sourcekit-lsp' },
+      filetypes = { 'swift', 'objective-c', 'objective-cpp' },
+    })
+    vim.lsp.enable('sourcekit')
   end,
 }

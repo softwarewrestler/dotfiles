@@ -58,6 +58,8 @@ return {
         --linting
         -- "eslint_d",
         "checkstyle",
+        "swiftlint",
+        "swiftformat",
       },
     }
   end,

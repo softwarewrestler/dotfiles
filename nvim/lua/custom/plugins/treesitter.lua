@@ -39,6 +39,7 @@ return {
         "prisma",
         "angular",
         "svelte",
+        "swift",
       },
       incremental_selection = {
         enable = true,
