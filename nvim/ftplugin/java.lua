@@ -70,13 +70,7 @@ local config = {
         downloadSources = true,
       },
       configuration = {
-        runtimes = {
-          {
-            name = "JavaSE-1.8",
-            path = "/Users/gordo/.sdkman/candidates/java/8.0.362-amzn",
-            default = true,
-          },
-        }
+        runtimes = {}
       },
       maven = {
         downloadSources = true,
@@ -96,33 +90,22 @@ local config = {
     },
   },
   cmd = {
-    home .. '/.sdkman/candidates/java/17.0.6-tem/bin/java',
+    home .. '/.sdkman/candidates/java/21.0.2-open/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
-    '-Dlog.protocol=true',
-    '-Dlog.level=ALL',
+    '-Dosgi.checkConfiguration=true',
+    '-Dosgi.sharedConfiguration.area=/opt/homebrew/Cellar/jdtls/1.58.0/libexec/config_mac',
+    '-Dosgi.sharedConfiguration.area.readOnly=true',
+    '-Dosgi.configuration.cascaded=true',
+    '-Xms1G',
     '-Xmx4g',
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-
-    -- 💀
-    '-jar', '/opt/homebrew/Cellar/jdtls/1.22.0/libexec/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-         -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
-         -- Must point to the                                                     Change this to
-         -- eclipse.jdt.ls installation                                           the actual version
-
-    -- 💀
-    '-configuration', '/opt/homebrew/Cellar/jdtls/1.22.0/libexec/config_mac',
-                    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
-                    -- Must point to the                      Change to one of `linux`, `win` or `mac`
-                    -- eclipse.jdt.ls installation            Depending on your system.
-
-
-    -- 💀
-    -- See `data directory configuration` section in the README
-    '-data', workspace_dir
+    '-javaagent:' .. home .. '/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar',
+    '-jar', '/opt/homebrew/Cellar/jdtls/1.58.0/libexec/plugins/org.eclipse.equinox.launcher_1.7.100.v20251111-0406.jar',
+    '-data', workspace_dir,
   },
 }
 

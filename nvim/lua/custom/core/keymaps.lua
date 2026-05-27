@@ -25,12 +25,17 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- window management
+keymap("n", "<leader>sv", "<C-w>v", { noremap = true, silent = true, desc = "[S]plit window [V]ertically" }) -- split window vertically
+keymap("n", "<leader>sh", "<C-w>s", { noremap = true, silent = true, desc = "[S]plit window [H]orizontally" }) -- split window horizontally
+keymap("n", "<leader>se", "<C-w>=", { noremap = true, silent = true, desc = "Make [S]plits [E]qual size" }) -- make split windows equal width & height
+keymap("n", "<leader>sx", "<cmd>close<CR>", { noremap = true, silent = true, desc = "Close current split" }) -- close current split window
+
 -- disable arrow keys
 keymap("n", "<UP>", "<Nop>", opts)
 keymap("n", "<DOWN>", "<Nop>", opts)
 keymap("n", "<LEFT>", "<Nop>", opts)
 keymap("n", "<RIGHT>", "<Nop>", opts)
-
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -45,6 +50,9 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+
+-- clear hlsearch
+keymap("n", "<leader>nh", "<cmd>nohlsearch<CR>", { noremap = true, silent = true, desc = "Clear search highlights" })
 
 -- Insert --
 -- Press jk fast to enter
@@ -75,18 +83,40 @@ keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
-
 -- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
-keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+--keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
+--keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
+--keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
+--keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+
 
 -- Gitsigns
 keymap("n", "<UP>", ":Gitsigns prev_hunk<CR>", opts)
 keymap("n", "<DOWN>", ":Gitsigns next_hunk<CR>", opts)
 keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", opts)
 
--- Nvim Tree
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
-keymap("n", "<leader>ef", ":NvimTreeFindFile<cr>", opts)
+
+-- diagnostics
+
+-- Diagnostic keymaps
+vim.keymap.set(
+	"n",
+	"<leader>cdp",
+	vim.diagnostic.goto_prev,
+	{ desc = "Go to previous [C]ode [D]iagnostic [P]revious message" }
+)
+vim.keymap.set("n", "<leader>cdn", vim.diagnostic.goto_next, { desc = "Go to next [C]ode [D]iagnostic [N]ext message" })
+vim.keymap.set("n", "<leader>ce", vim.diagnostic.open_float, { desc = "Show diagnostic [C]ode [E]rror messages" })
+vim.keymap.set(
+	"n",
+	"<leader>cdq",
+	vim.diagnostic.setloclist,
+	{ desc = "Open diagnostic [C]ode [D]iagnostic [Q]uickfix list" }
+)
+
+
+-- increment/decrement numbers
+keymap("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
+keymap("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
+
+

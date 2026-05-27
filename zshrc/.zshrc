@@ -80,9 +80,9 @@ plugins=(
   themes
   vi-mode
   web-search
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  #zsh-syntax-highlighting
   )
+  #zsh-autosuggestions
 
 source $ZSH/oh-my-zsh.sh
 
@@ -148,11 +148,17 @@ bindkey '^ ' autosuggest-accept
 #  export NVM_DIR="$HOME/.nvm"
 #  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 #  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #nvm use 16
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/gordo/.sdkman"
 [[ -s "/Users/gordo/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/gordo/.sdkman/bin/sdkman-init.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
