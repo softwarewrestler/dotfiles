@@ -95,7 +95,7 @@ local config = {
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dosgi.checkConfiguration=true',
-    '-Dosgi.sharedConfiguration.area=/opt/homebrew/Cellar/jdtls/1.58.0/libexec/config_mac',
+    '-Dosgi.sharedConfiguration.area=/opt/homebrew/Cellar/jdtls/1.60.0/libexec/config_mac',
     '-Dosgi.sharedConfiguration.area.readOnly=true',
     '-Dosgi.configuration.cascaded=true',
     '-Xms1G',
@@ -104,7 +104,7 @@ local config = {
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
     '-javaagent:' .. home .. '/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar',
-    '-jar', '/opt/homebrew/Cellar/jdtls/1.58.0/libexec/plugins/org.eclipse.equinox.launcher_1.7.100.v20251111-0406.jar',
+    '-jar', '/opt/homebrew/Cellar/jdtls/1.60.0/libexec/plugins/org.eclipse.equinox.launcher_1.7.200.v20260619-2039.jar',
     '-data', workspace_dir,
   },
 }
